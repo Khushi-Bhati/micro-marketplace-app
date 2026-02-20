@@ -140,4 +140,9 @@ async function seed() {
     console.log('   User 2: jane@example.com / password123');
 }
 
-seed().catch(console.error);
+// Run directly: node seed.js
+if (require.main === module) {
+    seed().catch(console.error);
+}
+
+module.exports = seed;

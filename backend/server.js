@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const db = require("./config/database");
 
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/products");
@@ -16,7 +17,9 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   "https://micro-marketplace-app-xi.vercel.app", // production frontend
-  "http://localhost:3000" // local frontend
+  "http://localhost:3000",  // local frontend (CRA)
+  "http://localhost:5173",  // local frontend (Vite)
+  "http://localhost:4173",  // local frontend (Vite preview)
 ];
 
 app.use(
@@ -108,8 +111,20 @@ app.use((err, req, res, next) => {
    START SERVER
 ========================= */
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`🚀 Micro Marketplace API running on port ${PORT}`);
+
+  // Auto-seed the database if it's empty (useful after fresh deploys)
+  try {
+    const count = db.prepare('SELECT COUNT(*) as total FROM products').get();
+    if (count.total === 0) {
+      console.log('📦 Empty database detected — auto-seeding...');
+      const seed = require('./seed');
+      await seed();
+    }
+  } catch (e) {
+    // seed table may not exist yet — ignore
+  }
 });
 
 module.exports = app;
