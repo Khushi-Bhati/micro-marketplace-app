@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:5000';
+const API_BASE = 'https://micro-marketplace-app-h4xd.onrender.com/';
 
 const api = axios.create({
     baseURL: API_BASE,
