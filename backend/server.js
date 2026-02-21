@@ -11,15 +11,13 @@ const favoriteRoutes = require("./routes/favorites");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-/* =========================
-   CORS CONFIGURATION
-========================= */
+
 
 const allowedOrigins = [
-  "https://micro-marketplace-app-xi.vercel.app", // production frontend
-  "http://localhost:3000",  // local frontend (CRA)
-  "http://localhost:5173",  // local frontend (Vite)
-  "http://localhost:4173",  // local frontend (Vite preview)
+  "https://micro-marketplace-app-xi.vercel.app",
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://localhost:4173",
 ];
 
 app.use(
@@ -107,14 +105,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-/* =========================
-   START SERVER
-========================= */
+
 
 app.listen(PORT, async () => {
   console.log(`🚀 Micro Marketplace API running on port ${PORT}`);
 
-  // Auto-seed the database if it's empty (useful after fresh deploys)
+
   try {
     const count = db.prepare('SELECT COUNT(*) as total FROM products').get();
     if (count.total === 0) {
@@ -123,7 +119,7 @@ app.listen(PORT, async () => {
       await seed();
     }
   } catch (e) {
-    // seed table may not exist yet — ignore
+
   }
 });
 

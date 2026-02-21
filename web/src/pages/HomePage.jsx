@@ -10,7 +10,7 @@ export default function HomePage() {
     const [search, setSearch] = useState('');
     const [category, setCategory] = useState('all');
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [searchTimeout, setSearchTimeout] = useState(null);
 
     const fetchProducts = useCallback(async () => {

@@ -1,9 +1,7 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-// Your machine's local IP - works for both Android/iOS devices on same WiFi
-// For Android emulator use: http://10.0.2.2:5000
-const API_BASE = 'http://192.168.1.9:5000';
+const API_BASE = 'https://micro-marketplace-app-h4xd.onrender.com';
 
 const api = axios.create({
     baseURL: API_BASE,
